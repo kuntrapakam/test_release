@@ -1,0 +1,19 @@
+name: Your Workflow
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+jobs:
+  your_job:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+      with:
+        ref: ${{ github.event.before }}..${{ github.sha }}
+        fetch-depth: 0
+        if: startsWith(github.ref, 'refs/heads/develop')
